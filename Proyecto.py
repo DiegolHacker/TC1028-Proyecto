@@ -3,13 +3,15 @@
 
 #requiere de la instalación de la libreria inputimeout, usar el comando pip install inputimeout en la consola (cmd/powershell)
 
+
 import os
+os.system("pip install inputimeout") #Instala la librería inputimeout al correr el programa.
 import random
 import math
-#import time
-#import inputimeout #librerias aún no implementadas, las usaré para que la pantalla de bienvenida parpadeé
+import time
+import inputimeout
 
-os.system("cls") #borra la consola, lo podría convertir en una función.
+os.system("cls") #borra la consola, conventirlo en función en una próxima iteración.
 
 jugar = True
 puntos = 100
@@ -17,9 +19,9 @@ puntos = 100
 n = " "
 rand = int(random.randint(1,9))
 
-def tablero(value, largo, lista):
+def tablero(value, largo, lista): #funciones para generar los tableros.
     for i in range(largo):
-        value = int(random.randint(1,9))  #funciones para generar los tableros
+        value = int(random.randint(1,9))
         lista.append([value])
 
 def empt_tablero(value, large, lista):
@@ -27,34 +29,64 @@ def empt_tablero(value, large, lista):
         lista.append([value])
 
 
-def prnt_tablero(contador, lista): #Función para imprimir los tableros
+def prnt_tablero(contador, lista): #función para imprimir los tableros.
     while contador <= 9:
         if contador != 4:
             print("|"+" ".join(map(str,lista[contador]))+"|", end = '') #imprimir tablero, junto a las lineas para que se vea bonito y ordenado
         if contador == 4:
-            print("|"+" ".join(map(str,lista[contador]))+"|") #imprimir tablero con salto de linea.
+            print("|"+" ".join(map(str,lista[contador]))+"|") #imprimir tablero con salto de linea. Se me hace que le puedo quitar el +" " pero ya no le quiero mover.
         contador+=1
 
 condicion = True
+iniciar = None
 
-#while condicion:
-#    print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
-#    iniciar = inputimeout.inputimeout(timeout=1)
-#    if iniciar == "":
-#        condicion = False
-#    time.sleep(0.3)
-#    os.system("cls")
-#    print("     Apuestronic\n       Diegol©")
-#    iniciar = inputimeout.inputimeout(timeout=1)
-#    if iniciar == "":
-#        condicion = False
-#    os.system("cls")
+while condicion: #en este ciclo while se implementa la función inputimeout de la librería del mismo nombre para generar una interfaz dinámica donde el texto pueda parpadear de forma automática, y donde se detenga en cuanto detecte un input del usuario
+    if condicion:
+        print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar",  end = '') 
+        try: #Intenta ejecutar la función inputimeout, esta devuelve error al no ser contestada, así se evita que se detenga el programa.
+            iniciar = inputimeout.inputimeout(timeout=0.5) #genera un input, si no se contesta en 0.5 segundos continúa con la ejecución del programa.
+        except Exception:
+            pass
+        if iniciar == "":
+            condicion = False
+    if condicion:
+        os.system("cls")
+        print("     Apuestronic\n       Diegol©\n\n\n\n",  end = '')
+        try:
+            iniciar = inputimeout.inputimeout(timeout=0.5)
+        except Exception:
+            pass
+        if iniciar == "":
+            condicion = False
+    os.system("cls")
 
-print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
-input()
-os.system("cls")
-print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar")
-input()
+condicion = True
+iniciar = None
+
+while condicion: #Usé el mismo código para la interfaz de las instrucciones, en la próxima versión lo convertiré en una función
+    if condicion:
+        print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
+        try:
+            iniciar = inputimeout.inputimeout(timeout=0.5)
+        except Exception:
+            pass
+        if iniciar == "":
+            condicion = False
+    if condicion:
+        os.system("cls")
+        print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos.\n\n\n")
+        try:
+            iniciar = inputimeout.inputimeout(timeout=0.5)
+        except Exception:
+            pass
+        if iniciar == "":
+            condicion = False
+    os.system("cls")
+#print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
+#input()
+#os.system("cls")
+#print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar")
+#input()
 
 while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
 
@@ -73,11 +105,11 @@ while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
     menor = 0
 
 
-    empt_tablero(n, x, empty_board) #generar tablero vacío
+    empt_tablero(n, x, empty_board)
 
-    prnt_tablero(z2, empty_board) #generar tablero 
+    prnt_tablero(z2, empty_board)
 
-    tablero(rand, x, board) #Imprimir tablero vacío
+    tablero(rand, x, board)
 
     print("\n")
 
@@ -105,7 +137,7 @@ while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
     os.system("cls")
     print("Puntos:",puntos)
 
-    prnt_tablero(z, board) #imprimir tablero
+    prnt_tablero(z, board)
 
     while z3 <= 9:
         #estas casillas son los valores de la y las casillas al rededor de la que estamos comprobando
