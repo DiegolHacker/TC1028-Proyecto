@@ -1,7 +1,7 @@
 # TC1028-Proyecto
 Primer avance del proyecto 1 de la clase de TC1028
 
-# SE INSTALA LA LIBRERÍA inputimeout PARA PYHTON DE FORMA AUTOMÁTICA AL CORRER EL PROGRAMA USANDO EL COMANDO pip install inputimeout EN LA CONSOLA.
+### SE INSTALA LA LIBRERÍA inputimeout PARA PYHTON DE FORMA AUTOMÁTICA AL CORRER EL PROGRAMA USANDO EL COMANDO pip install inputimeout EN LA CONSOLA.
 
 ### Contexto
 
