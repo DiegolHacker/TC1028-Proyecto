@@ -5,93 +5,88 @@
 
 
 import os
-os.system("pip install inputimeout") #Instala la librería inputimeout al correr el programa.
+os.system("pip install inputimeout") #Intalla la librería inputimeout de forma automática
 import random
-import math
-import time
 import inputimeout
 
-os.system("cls") #borra la consola, conventirlo en función en una próxima iteración.
+puntos_max_str = 100
+
+try:
+    with open('score.txt') as file:     #asigna el valor guardado en el archivo score.txt a una variable. Lo guarda en foram de string. En caso de que el archivo aún no exista se salta este paso y asigna el valor a 100.
+        puntos_max_str = file.read()
+except Exception:
+    pass
+
+os.system("cls") #borra la consola :P
 
 jugar = True
 puntos = 100
+puntos_max = int(puntos_max_str) #Convierte el str de score.txt a int.
 
 n = " "
 rand = int(random.randint(1,9))
 
-def tablero(value, largo, lista): #funciones para generar los tableros.
-    for i in range(largo):
-        value = int(random.randint(1,9))
-        lista.append([value])
+def texto_parpadeante(estado1, estado2): #Función para hacer que el texto parpadee.
+    condicion = True
+    iniciar = None
+    while condicion: #El texto parpadea indefinidamente
+        if condicion: #Este if se usa para que si en uno de los 2 estados el usuario da enter no se tenga que pasar por el otro estado para continuar.
+            print(estado1)
+            try: #intenta ejecutar este código, el cual devuelve error al pasar el tiempo especificado.
+                iniciar = inputimeout.inputimeout(timeout=0.5) #Crea un input con tiempo límite. Al pasar el tiempo retorna un error y se continúa con la ejecución del programa.
+            except Exception:
+                pass
+            if iniciar == "": #Si se recibe un input con un enter, se detiene la ejecución.
+                condicion = False
+        if condicion: #se repite el código para el segundo estado.
+            os.system("cls")
+            print(estado2)
+            try:
+                iniciar = inputimeout.inputimeout(timeout=0.5)
+            except Exception:
+                pass
+            if iniciar == "":
+                condicion = False
+        os.system("cls")
 
-def empt_tablero(value, large, lista):
+def tablero(value, largo, lista): #Función que genera el tablero
+    for i in range(largo): #Ciclo for con número de iteraciones definido
+        value = int(random.randint(1,9)) #Genera un número aleatorio nuevo en cada iteración
+        lista.append([value]) #Añade el número aleatorio al final de la lista
+
+def empt_tablero(value, large, lista): #Hace lo mismo pero con un valor específico. En este caso genera una lista con valores vacíos.
     for i in range(large):
         lista.append([value])
 
 
-def prnt_tablero(contador, lista): #función para imprimir los tableros.
+def prnt_tablero(contador, lista): #Imprime las listas en forma de un tablero
     while contador <= 9:
         if contador != 4:
             print("|"+" ".join(map(str,lista[contador]))+"|", end = '') #imprimir tablero, junto a las lineas para que se vea bonito y ordenado
         if contador == 4:
-            print("|"+" ".join(map(str,lista[contador]))+"|") #imprimir tablero con salto de linea. Se me hace que le puedo quitar el +" " pero ya no le quiero mover.
+            print("|"+" ".join(map(str,lista[contador]))+"|") #imprimir tablero con salto de linea.
         contador+=1
 
-condicion = True
-iniciar = None
 
-while condicion: #en este ciclo while se implementa la función inputimeout de la librería del mismo nombre para generar una interfaz dinámica donde el texto pueda parpadear de forma automática, y donde se detenga en cuanto detecte un input del usuario
-    if condicion:
-        print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar",  end = '') 
-        try: #Intenta ejecutar la función inputimeout, esta devuelve error al no ser contestada, así se evita que se detenga el programa.
-            iniciar = inputimeout.inputimeout(timeout=0.5) #genera un input, si no se contesta en 0.5 segundos continúa con la ejecución del programa.
-        except Exception:
-            pass
-        if iniciar == "":
-            condicion = False
-    if condicion:
-        os.system("cls")
-        print("     Apuestronic\n       Diegol©\n\n\n\n",  end = '')
-        try:
-            iniciar = inputimeout.inputimeout(timeout=0.5)
-        except Exception:
-            pass
-        if iniciar == "":
-            condicion = False
-    os.system("cls")
 
-condicion = True
-iniciar = None
+texto1 = "     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar"
+texto2 = "     Apuestronic\n       Diegol©\n\n\n\n"
 
-while condicion: #Usé el mismo código para la interfaz de las instrucciones, en la próxima versión lo convertiré en una función
-    if condicion:
-        print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
-        try:
-            iniciar = inputimeout.inputimeout(timeout=0.5)
-        except Exception:
-            pass
-        if iniciar == "":
-            condicion = False
-    if condicion:
-        os.system("cls")
-        print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos.\n\n\n")
-        try:
-            iniciar = inputimeout.inputimeout(timeout=0.5)
-        except Exception:
-            pass
-        if iniciar == "":
-            condicion = False
-    os.system("cls")
-#print("     Apuestronic\n       Diegol©\n\n\n\n""Pulsa enter para continuar") #Nota para mimismo: podría hacer que funcionara el parpadeo de la interfaz que quería implementar con una libreria que llevara track of time y poner un if input en menos de 1 segundo, para que cada segundo se actualice, o un pedo asi.
-#input()
-#os.system("cls")
-#print("            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar")
-#input()
+texto_parpadeante(texto1,texto2) #Función de texto parpadeante.
+
+texto1 = "            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos. \n\nPulsa enter para continuar"
+texto2 = "            Instrucciones\n\nDebes seleccionar 2 números contiguos\ndel 1 al 9. Si estos números se \nencuentran juntos en el tablero, ganas \n50 puntos, si no, pierdes 5 puntos.\n\n"
+
+texto_parpadeante(texto1,texto2)
+
+
+#============================================Ejecución=====================================================
 
 while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
 
     os.system("cls")
-    print("Puntos:",puntos)
+    print("High score:",puntos_max)
+    print("Score:",puntos)
 
     board = [] #lista vacía para los números aleatorios.
     empty_board = [] #lista vacia para el tablero sin descubrir
@@ -135,9 +130,12 @@ while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
     mayorstr = str(mayor)
 
     os.system("cls")
-    print("Puntos:",puntos)
+    print("High score:",puntos_max)
+    print("Score:",puntos)
 
     prnt_tablero(z, board)
+
+#==========================================Validacion======================================================
 
     while z3 <= 9:
         #estas casillas son los valores de la y las casillas al rededor de la que estamos comprobando
@@ -159,6 +157,14 @@ while jugar: #el juego se ejecutara mientras la condición de jugar sea cierta
             puntos-=5
 
         z3+=1
+
+#==========================================================================================================
+
+    if puntos > puntos_max:
+        puntos_max = puntos
+
+    with open("score.txt", "w") as file:
+        file.write(str(puntos_max))
 
     a = input(" ")
     if a == "x":
