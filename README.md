@@ -1,11 +1,10 @@
 # TC1028-Proyecto
-Primer avance del proyecto 1 de la clase de TC1028
 
 ### SE INSTALA LA LIBRERÍA inputimeout PARA PYHTON DE FORMA AUTOMÁTICA AL CORRER EL PROGRAMA USANDO EL COMANDO pip install inputimeout EN LA CONSOLA.
 
 ### Contexto
 
-Mi programa por ahora se llama "Apuestronic", y consiste en un juego de apuestas donde se le dan varios números secretos al usuario (10)  y el usuario debe poner 2 números consecutivos, si esos 2 números se encuentran juntos en alguna de las posiciones de los números que se le den al usuario el usuario gana. El usuario empieza con 100 créditos, si gana se le suman 50, y si pierde se le quitan 5.
+Mi programa se llama "Apuestronic", y consiste en un juego de apuestas donde se le dan 10 números secretos al usuario y el usuario debe poner 2 números consecutivos, si esos 2 números se encuentran juntos en alguna de las posiciones de los números secretos, el usuario gana. El usuario empieza con 100 créditos, si gana se le suman 50, y si pierde se le quitan 5.
 
 ### Importancia
 
@@ -14,7 +13,6 @@ Mi proyecto se vuelve interesante sobre todo en la parte de comprobar si esa sec
 ## Algoritmo
 
 0. Limpiar la consola en cada iteración donde se vuelva a imprimir.
-
 1. Imprimir los créditos iniciales y unas instrucciones en una interfaz acomodada.
 2. Generar números enteros aleatorios y guardarlos en una lista.
 3. Imprimir cuadros negros para representar los números ocultos en forma de cuadrícula, así como los créditos restantes
